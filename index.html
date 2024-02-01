@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+    /* Your existing styles remain unchanged */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #fff;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    #profile-picture-container {
+      width: 40px;
+      margin-right: 20px;
+    }
+
+    #profile-picture {
+      width: 100%;
+    }
+
+    #search-bar-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+
+    #search-bar {
+      width: 60%;
+      padding: 8px 20px 8px 20px;
+      border: none;
+      border-radius: 20px;
+      margin: 0 10px;
+      font-size: 16px;
+    }
+
+    #microphone {
+      cursor: pointer;
+      margin-left: -30px;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 1000;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    #navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .nav-link i {
+      margin-right: 8px;
+    }
+
+    nav.show {
+      transform: translateY(0);
+    }
+
+    nav.show .nav-link {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #110f0f;
+      padding: 8px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    .footer-icon {
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out;
+    }
+    .footer-icon {
+        transition: transform 0.3s ease-in-out;
+      }
+      /* Add a hover effect to scale up the image */
+      .footer-icon :hover {
+        transform: scale(1.1); /* Scale up the image */
+      }
+    .profile-picture-footer {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+   
+    .profile-picture-footer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    
+    }
+  
+  
+    /* New styles for videos */
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .video {
+      width: 45%;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+   
+
+    @media (max-width: 1080px) {
+      .video {
+        width: 100%;
+      }
+    }
+
+    .scale {
+        position: relative;
+        right: -5px;
+      width: 340px;
+      height: 200px;
+      transition: 0.3s , ease-in-out;
+    }
+  
+    .scale{
+    transition: transform 0.3s ease; /* Add a transition effect */
+  }
+  
+  /* Add a hover effect to scale up the image */
+  .scale:hover {
+    transform: scale(1.1); /* Scale up the image */
+  }
+
+    .video-details {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .profile-pic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;    
+        transition: transform 0.3s ease; /* Add a transition effect */
+      }
+      .profile-picture-footer{
+        transition: transform 0.3s ease-in-out;
+      }
+      /* Add a hover effect to scale up the image */
+      .profile-picture-footer:hover {
+        transform: scale(1.1); /* Scale up the image */
+      }
+    
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+      .profile-pic{
+        transition: transform 0.3s ease-in-out;
+      }
+      /* Add a hover effect to scale up the image */
+      .profile-pic:hover {
+        transform: scale(1.1); /* Scale up the image */
+      }
+    
+    
+
+    .details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title {
+      font-size: 16px;
+      margin-bottom: 5px;
+      position: relative;
+      top: 7px;
+    }
+
+    .time {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Add the following styles for the notification icon */
+#notification-icon {
+    font-weight: bold;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+#notification-icon:hover {
+  color: #ffd700; /* Change color on hover */
+}
+
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+     <!-- Notification icon added here -->
+ 
+    <div id="profile-picture-container">
+        <img id="profile-picture" src="logo.png" alt="Profile Picture">
+      </div>
+  
+      <div id="search-bar-container">
+        <input id="search-bar" type="text" placeholder="Search...">
+        <i id="microphone" class="fas fa-microphone"></i>
+      </div>
+      <div id="notification-icon">
+        <i class="fas fa-bell"></i>
+      </div>
+    
+
+    </header>
+  
+
+
+  <!-- New video container -->
+  <div class="video-container">
+    <!-- Video 1 -->
+    <div class="video">
+      <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 1 Thumbnail">
+      <div class="video-details">
+        <div class="profile-pic">
+          <img src="Screenshot 2024-01-27 082408.png" alt="Profile 1">
+        </div>
+        <div class="details">
+          <div class="title">
+            <h2>green screen</h2>
+          </div>
+          <div class="time">Published 1 day ago</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video 2 -->
+    <div class="video">
+      <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 2 Thumbnail">
+      <div class="video-details">
+        <div class="profile-pic">
+          <img src="Screenshot 2024-01-27 082408.png" alt="Profile 2">
+        </div>
+        <div class="details">
+          <div class="title">
+            <h2>green screen</h2>
+          </div>
+          <div class="time">Published 1 day ago</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video 3 -->
+    <div class="video">
+      <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 3 Thumbnail">
+      <div class="video-details">
+        <div class="profile-pic">
+          <img src="Screenshot 2024-01-27 082408.png" alt="Profile 3">
+        </div>
+        <div class="details">
+          <div class="title">
+            <h2>green screen</h2>
+          </div>
+          <div class="time">Published 1 day ago</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video 4 -->
+    <div class="video">
+      <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 4 Thumbnail">
+      <div class="video-details">
+        <div class="profile-pic">
+          <img src="Screenshot 2024-01-27 082408.png" alt="Profile 4">
+        </div>
+        <div class="details">
+          <div class="title">
+            <h2>green screen</h2>
+          </div>
+          <div class="time">Published 1 day ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video">
+        <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 1 Thumbnail">
+        <div class="video-details">
+          <div class="profile-pic">
+            <img src="Screenshot 2024-01-27 082408.png" alt="Profile 1">
+          </div>
+          <div class="details">
+            <div class="title">
+              <h2>green screen</h2>
+            </div>
+            <div class="time">Published 1 day ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="video">
+        <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 1 Thumbnail">
+        <div class="video-details">
+          <div class="profile-pic">
+            <img src="Screenshot 2024-01-27 082408.png" alt="Profile 1">
+          </div>
+          <div class="details">
+            <div class="title">
+              <h2>green screen</h2>
+            </div>
+            <div class="time">Published 1 day ago</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="video">
+        <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 1 Thumbnail">
+        <div class="video-details">
+          <div class="profile-pic">
+            <img src="Screenshot 2024-01-27 082408.png" alt="Profile 1">
+          </div>
+          <div class="details">
+            <div class="title">
+              <h2>green screen</h2>
+            </div>
+            <div class="time">Published 1 day ago</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="video">
+        <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 1 Thumbnail">
+        <div class="video-details">
+          <div class="profile-pic">
+            <img src="Screenshot 2024-01-27 082408.png" alt="Profile 1">
+          </div>
+          <div class="details">
+            <div class="title">
+              <h2>green screen</h2>
+            </div>
+            <div class="time">Published 1 day ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="video">
+        <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 1 Thumbnail">
+        <div class="video-details">
+          <div class="profile-pic">
+            <img src="Screenshot 2024-01-27 082408.png" alt="Profile 1">
+          </div>
+          <div class="details">
+            <div class="title">
+              <h2>green screen</h2>
+            </div>
+            <div class="time">Published 1 day ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="video">
+        <img class="scale" src="screenshot 2024-01-28 065701.png" alt="Video 1 Thumbnail">
+        <div class="video-details">
+          <div class="profile-pic">
+            <img src="Screenshot 2024-01-27 082408.png" alt="Profile 1">
+          </div>
+          <div class="details">
+            <div class="title">
+              <h2>green screen</h2>
+            </div>
+            <div class="time">Published 1 day ago</div>
+          </div>
+        </div>
+      </div>
+  
+  
+        
+  </div>
+
+  <footer>
+    <div class="footer-icon"><img src="photo_2024-02-01_06-30-41.jpg" width="25px" alt=""></div>
+    <div class="footer-icon"><img src="photo_2024-02-01_06-30-46.jpg" width="25px" alt=""></div>
+    <div class="footer-icon">➕</div>
+    
+  <div class="footer-icon">
+    <div class="footer-icon"><img src="photo_2024-02-01_06-30-51.jpg" width="30px" alt=""></div>
+  </div>
+
+    <div class="profile-picture-footer">
+      <img src="Screenshot 2024-01-27 082408.png" alt="Profile Picture">
+    </div>
+  </footer>
+
+  <script>
+     // Toggle the class 'show' on the navigation bar
+     document.getElementById('bell').addEventListener('click', function () {
+      document.getElementById('navbar').classList.toggle('show');
+    });
+  </script>
+</body>
+
+</html>
